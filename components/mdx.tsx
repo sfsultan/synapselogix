@@ -94,7 +94,7 @@ const components = {
   }: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
       className={cn(
-        "border border-l-8 border-blue-400 px-5 py-2 rounded shadow-md bg-gray-100 dark:bg-gray-800 text-sm",
+        "py-10 px-5 my-4 border border-l-8 border-blue-400 rounded shadow-md bg-gray-100 dark:bg-gray-800 text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white",
         className
       )}
       {...props}

@@ -1,20 +1,16 @@
 import { MetadataRoute } from 'next'
- 
+import {
+  APP_NAME,
+  APP_DESC,
+} from "app-config";
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Next.js App',
-    short_name: 'Next.js App',
-    description: 'Next.js App',
+    name: APP_NAME,
+    short_name: APP_NAME,
+    description: APP_DESC,
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',
     theme_color: '#fff',
-    icons: [
-      {
-        src: '/favicon.ico',
-        sizes: 'any',
-        type: 'image/x-icon',
-      },
-    ],
   }
 }

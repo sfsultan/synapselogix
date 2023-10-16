@@ -9,7 +9,8 @@ import rehypePrism from "rehype-prism-plus";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import { s } from "hastscript";
 import GithubSlugger from "github-slugger";
-import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns';
+import { writeFileSync } from 'fs';
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 
@@ -49,7 +50,7 @@ const computedFields = {
           return {
             level: flag.length,
             text: content,
-            slug: "#" + content ? slugger.slug(content) : undefined
+            slug: "#" + (content ? slugger.slug(content) : undefined)
           };
         }
       );
@@ -77,9 +78,30 @@ export const Doc = defineDocumentType(() => ({
       required: true,
     },
     keywords: { type: "string", required: false },
+    featuredImage: { type: "string", required: false },
   },
   computedFields,
 }));
+
+
+function createTagCount(allDocs) {
+  const tagCount = {}
+  allDocs.forEach((file) => {
+    if (file.keywords && (file.status !== 'draft')) {
+      file.keywords.forEach((tag) => {
+        const formattedTag = GithubSlugger.slug(tag)
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1
+        } else {
+          tagCount[formattedTag] = 1
+        }
+      })
+    }
+  })
+  writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+}
+
+
 
 export default makeSource({
   contentDirPath: "content",
