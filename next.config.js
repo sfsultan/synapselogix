@@ -3,6 +3,6 @@ const { withContentlayer } = require("next-contentlayer");
 const nextconfig = {
   reactStrictMode: true,
   swcMinify: true,
-  target: 'server'
+  target: 'server',
 };
 module.exports = withContentlayer(nextconfig);

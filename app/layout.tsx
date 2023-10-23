@@ -1,16 +1,17 @@
 import "./globals.css";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/nav-bar";
 import Footer from "@/components/footer";
-import Banner from "@/components/banner";
 import {
   APP_NAME,
   APP_DESC,
   APP_URL,
   APP_KEYWORDS,
 } from "app-config";
+import Script from 'next/script';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,6 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   keywords: APP_KEYWORDS,
   authors: [{ name: "FahdS", url: APP_URL }],
-  colorScheme: "dark",
   creator: "Fahd Sultan",
   publisher: APP_NAME,
   category: "technology",
@@ -107,14 +107,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " scroll-smooth"}>
+      <head>
+        
+          <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+          <Script id="google-analytics">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+    
+              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+            `}
+          </Script>
+      </head>
+      <body className={inter.className + " scroll-smooth dark:bg-zinc-900 dark:text-zinc-300"}>
         <ThemeProvider
-          attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          attribute="class"
+          enableColorScheme={false}
         >
-          <Banner />
+          {/* <Banner /> */}
           <Navbar />
           <div className="mx-auto max-w-screen-xl">{children}</div>
           <Footer />

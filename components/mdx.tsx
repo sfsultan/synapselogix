@@ -94,7 +94,7 @@ const components = {
   }: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
       className={cn(
-        "py-10 px-5 my-4 border border-l-8 border-blue-400 rounded shadow-md bg-gray-100 dark:bg-gray-800 text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white",
+        "py-10 px-5 my-4 border border-l-8 border-red-400 rounded shadow-md bg-red-100 dark:bg-zinc-800 text-xl italic font-medium leading-relaxed text-zinc-900 dark:text-zinc-200",
         className
       )}
       {...props}
@@ -152,15 +152,13 @@ const components = {
   // ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
     return (
-      <CopyToClipboard>
         <code
           className={cn(
-            "add-line-numbers relative rounded  px-10 py-[0.2rem] font-mono text-sm",
+            "add-line-numbers relative rounded  px-10 py-[0.2rem] font-mono text-md",
             className
           )}
           {...props}
         />
-      </CopyToClipboard>
     );
   },
   Image,
@@ -174,7 +172,7 @@ export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className="mdx dark:bg-slate-950">
+    <div className="mdx">
       <Component components={components} />
     </div>
   );

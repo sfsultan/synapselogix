@@ -1,18 +1,15 @@
 import React, { FC } from "react";
 import Image from "next/image";
-import { Alert } from "flowbite-react";
 import { Button } from "@/components/ui/button";
+import { ButtonCopy } from "@/components/ui/button-copy";
 import { Metadata, ResolvingMetadata } from "next";
 import { allDocs } from "@/.contentlayer/generated";
 import { Mdx } from "@/components/mdx";
-import {
-  Facebook,
-  Twitter,
-  Linkedin,
-  ClipboardCopy,
-  AlarmClock,
-} from "lucide-react";
+import { ClipboardCopy, AlarmClock } from "lucide-react";
 import { APP_NAME, APP_URL } from "app-config";
+import DisqusComments from "@/components/disqus-comments";
+import { notFound } from 'next/navigation';
+import { TweetButton } from "@/components/ui/button-tweet";
 
 interface PageProps {
   params: {
@@ -81,21 +78,21 @@ const Article: FC<PageProps> = async ({ params }) => {
   if (doc) {
     return (
       <div className="columns-1 md:columns-2 gap-8 flex ">
-        <div className="w-full px-10 md:w-3/4 md:px-0">
+        <div className="w-full px-10 md:w-4/5 lg:px-0">
           <div className="flex  flex-col justify-between ">
             <div className="flex flex-wrap pb-5">
               {doc.keywords &&
                 doc.splitKeywords.map((k: string) => (
                   <span
                     key={k}
-                    className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 mb-2"
+                    className="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800 mb-2"
                   >
                     # {k}
                   </span>
                 ))}
             </div>
 
-            <h1 className="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+            <h1 className="mb-2 text-3xl font-extrabold leading-tight text-zinc-900 lg:mb-6 lg:text-4xl dark:text-zinc-200">
               {doc.title as string}
             </h1>
 
@@ -108,7 +105,7 @@ const Article: FC<PageProps> = async ({ params }) => {
             </div>
 
             <div className="space-x-2 flex flex-row sticky my-5">
-              <Button variant="outline" size="sm">
+              {/* <Button variant="outline" size="sm">
                 <Facebook className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all  mr-2" />{" "}
                 Share
               </Button>
@@ -119,33 +116,45 @@ const Article: FC<PageProps> = async ({ params }) => {
               <Button variant="outline" size="sm">
                 <Linkedin className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all   mr-2" />{" "}
                 Share
-              </Button>
-              <Button variant="outline" size="sm">
+              </Button> */}
+              <ButtonCopy variant="outline" size="sm">
                 <ClipboardCopy className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all   mr-2" />{" "}
                 Copy URL
-              </Button>
+              </ButtonCopy>
+              <TweetButton 
+                url={APP_URL + "/" + doc?.slug} 
+                title={doc.title}
+                tags={doc.keywords!}
+              />
             </div>
 
             <div className="py-5">{doc.description && doc.description}</div>
 
-            <div>
+            <div className="">
               {doc.featuredImage && (
-                <Image
-                  src={doc.featuredImage}
-                  alt={doc.title}
-                  className="py-10"
-                  width={1400}
-                  height={600}
-                  loading="lazy"
-                />
+                <div className="relative w-full m-auto max-w-[1400px] aspect-[7/4]">
+                  <Image
+                    src={doc.featuredImage}
+                    alt={doc.title}
+                    className=""
+                    // width={1400}
+                    // height={600}
+                    // loading="lazy"
+                    fill
+                    sizes="(max-width: 800px) 100vw, 700px"
+                  />
+                </div>
               )}
               <Mdx code={doc?.body.code} />
             </div>
+            <div className="w-full min-w-full mt-10">
+              <DisqusComments post={doc} />
+            </div>
           </div>
         </div>
-        <div className="w-1/4 hidden md:block">
+        <div className="w-1/5 hidden md:block">
           <div className="sticky top-10 ">
-            <h3 className="text-blue-500 font-extrabold mb-5">
+            <h3 className="text-red-500 font-extrabold mb-5">
               In this article
             </h3>
             <ul className="flex flex-col">
@@ -156,7 +165,10 @@ const Article: FC<PageProps> = async ({ params }) => {
                       key={h.text}
                       className={"ml-" + (h.level == "2" ? "5" : "")}
                     >
-                      <a className="hover:text-blue-500" href={h.slug}>
+                      <a
+                        className="hover:text-blue-500 transition-all duration-150"
+                        href={h.slug}
+                      >
                         {h.text}
                       </a>
                     </li>
@@ -168,7 +180,7 @@ const Article: FC<PageProps> = async ({ params }) => {
       </div>
     );
   } else {
-    return <main>Not Found</main>;
+    return notFound()
   }
 };
 

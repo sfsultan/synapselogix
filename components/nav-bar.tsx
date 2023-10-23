@@ -11,6 +11,8 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import MyLightImage from "../../../public/my-light-image.png";
+import MyDarkImage from "../../../public/my-dark-image.png";
 import { Camera } from "lucide-react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
@@ -23,33 +25,28 @@ import {
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-import Image from 'next/image'
-import { APP_NAME } from "app-config";
-import { useRouter } from 'next/router';
-
-
+import Image from "next/image";
+import { APP_NAME, APP_URL } from "app-config";
+import { useRouter } from "next/router";
+import Logo from "./logo";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
 
   return (
     <header>
-      <nav className="border-b px-4 lg:px-6 py-5 align-middle bg-gray-100 dark:bg-gray-800 mb-20">
+      <nav className="border-b px-4 lg:px-6 py-5 align-middle bg-zinc-100 dark:bg-zinc-800 mb-20">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <a href="/" className="flex items-center">
-            <Image
-              className="mr-3 filter-none"
-              src="/logo.svg"
-              alt="SynapeLogix Logo"
-              height={20}
-              width={35}
-              priority
-            />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              { APP_NAME }
-            </span>
-          </a>
-          <div className="flex items-center lg:order-2">
+          <Link href="/" className="flex items-center">
+            <Logo />
+          </Link>
+          <div className="flex items-center lg:order-2 space-x-5">
+            <Link
+              href="/about"
+              className="hover:bg-zinc-500 hover:text-zinc-100 hover:border-zinc-800 px-4 py-1 rounded-md transition-all duration-150 font-bold"
+            >
+              About
+            </Link>
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -72,7 +69,6 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            
           </div>
         </div>
       </nav>

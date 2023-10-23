@@ -146,6 +146,22 @@ code.add-line-numbers[data-line-numbers-max-digits='3'] > [data-line]::before {
 }
 
 .line--highlighted {
-  background-color: darkslategray;
+  background-color: rgb(82, 70, 65);
   border-left: 3px red solid;
+}
+
+.custom-image-wrapper {
+  position: relative;
+  aspect-ratio: 7/4;
+  max-width: 350px;
+  width: 100%;
+  margin: auto;
+}
+
+.custom-article-image-wrapper {
+  position: relative;
+  aspect-ratio: 7/4;
+  max-width: 350px;
+  width: 100%;
+  margin: auto;
 }

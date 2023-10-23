@@ -75,7 +75,7 @@ export const Doc = defineDocumentType(() => ({
       options: ["draft", "published"],
       required: true,
     },
-    keywords: { type: "string", required: false },
+    keywords: { type: "string", required: true },
     featuredImage: { type: "string", required: false },
   },
   computedFields,
@@ -114,7 +114,7 @@ export default makeSource({
       [
         rehypePrettyCode,
         {
-          theme: "material-theme-ocean",
+          theme: "dark-plus",
           onVisitLine(node) {
             if (node.children.length === 0) {
               node.children = [{ type: "text", value: " " }];
