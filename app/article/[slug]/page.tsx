@@ -66,7 +66,7 @@ export async function generateMetadata(
 async function getDocFromParams(slug: string) {
   const doc = allDocs.find((doc) => doc.slugAsParams === slug);
 
-  if (!doc) {
+  if (!doc || ( process.env.NODE_ENV !== "development" && doc.status == "draft")) {
     console.log("Doc not found!");
     null;
   }
