@@ -7,7 +7,7 @@ const Hero = async () => {
       <section className="mb-20">
         <div className=" flex flex-col py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12 items-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-zinc-800 md:text-5xl lg:text-6xl dark:text-zinc-200">
-            Welcome ... ✨
+            Welcome ... 
           </h1>
           <p className="mb-3 text-lg font-normal text-zinc-500 lg:text-xl sm:px-16 xl:px-48 dark:text-zinc-400">
             Here I write about my adventures in software engineering with

@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Mail } from "lucide-react";
+import { Mail, Quote } from "lucide-react";
 import { TechIcon } from "@/components/tech-icon";
 import { TWITTER_URL, GITHUB_URL } from "app-config";
 
@@ -155,7 +155,7 @@ export default function About() {
       </div>
 
       <div className="items-center mx-auto mt-20 flex flex-col">
-        <h3 className="text-2xl font-bold mb-5 flex">Tech Stack</h3>
+        <h3 className="text-2xl font-bold mb-5 flex">Stack</h3>
 
         <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
           I am currently working with the below technologies. Feel free to reach
@@ -175,6 +175,7 @@ export default function About() {
           <TechIcon imageSrc="/tech/selenium.svg" text="Selenium" />
         </div>
       </div>
+      
     </section>
   );
 }
